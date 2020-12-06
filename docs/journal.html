@@ -762,11 +762,8 @@ print(companies)</code></pre>
 ## [[10]]
 ## [1] &quot;Apple Inc.&quot;</code></pre>
 </div>
-</div>
-<div id="data-wrangling---patent-analysis-1" class="section level1">
-<h1><span class="header-section-number">5</span> Data Wrangling - Patent Analysis</h1>
 <div id="what-us-company-had-the-most-patents-granted-in-2019" class="section level2">
-<h2><span class="header-section-number">5.1</span> What US company had the most patents granted in 2019?</h2>
+<h2><span class="header-section-number">4.2</span> What US company had the most patents granted in 2019?</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)
 library(&quot;tidyr&quot;)
 library(&quot;vroom&quot;)
@@ -872,11 +869,8 @@ print(res_list)</code></pre>
 ## [[10]]
 ## [1] &quot;Hewlett-Packard Development Company, L.P.&quot;</code></pre>
 </div>
-</div>
-<div id="data-wrangling---patent-analysis-2" class="section level1">
-<h1><span class="header-section-number">6</span> Data Wrangling - Patent Analysis</h1>
 <div id="what-are-the-top-5-most-innovative-tech-sectors" class="section level2">
-<h2><span class="header-section-number">6.1</span> What are the top 5 most innovative tech sectors?</h2>
+<h2><span class="header-section-number">4.3</span> What are the top 5 most innovative tech sectors?</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)
 library(&quot;tidyr&quot;)
 library(&quot;vroom&quot;)
@@ -982,9 +976,9 @@ print(main_class_list)</code></pre>
 </div>
 </div>
 <div id="data-visualization---covid-19" class="section level1">
-<h1><span class="header-section-number">7</span> Data Visualization - Covid-19</h1>
+<h1><span class="header-section-number">5</span> Data Visualization - Covid-19</h1>
 <div id="plot-cumulative-cases" class="section level2">
-<h2><span class="header-section-number">7.1</span> Plot cumulative cases</h2>
+<h2><span class="header-section-number">5.1</span> Plot cumulative cases</h2>
 <pre class="r"><code>library(tidyverse)
 covid_data_tbl &lt;- read_csv(&quot;https://opendata.ecdc.europa.eu/covid19/casedistribution/csv&quot;)
 
@@ -1026,7 +1020,7 @@ plot(p)</code></pre>
 <p><img src="journal_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="plot-mortality-rate-by-state" class="section level2">
-<h2><span class="header-section-number">7.2</span> Plot mortality rate by state</h2>
+<h2><span class="header-section-number">5.2</span> Plot mortality rate by state</h2>
 <pre class="r"><code># get most recent mortality rates
 last_date=max(covid_data_tbl$dateRep)
 covid_last=covid_data_tbl[covid_data_tbl$dateRep==last_date,]

@@ -353,7 +353,6 @@ print(companies)
 
 ```
 
-# Data Wrangling - Patent Analysis
 
 ## What US company had the most patents granted in 2019? 
 
@@ -436,7 +435,6 @@ print(res_list)
 
 ```
 
-# Data Wrangling - Patent Analysis 
 
 ## What are the top 5 most innovative tech sectors?
 
