@@ -57,6 +57,9 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 # Introduction - Bike Stores
 
+Calculate revenues by state and plot.
+Caculate revnues by state and year and plot.
+
 ```{r}
 library('tidyverse')
 library('readxl')
@@ -155,6 +158,9 @@ plot(p)
 
 # Data Acquisition via API - Star Wars
 
+Acquire data via the Star Wars API.
+Print the Persons table as example. The other tables are created as well.
+
 ```{r}
 
 library(tidyverse)
@@ -218,6 +224,8 @@ glimpse(table_list[[1]])
 
 # Data Acquisition via Scraping - Bike website
 
+Acquire data via webscraping. Create a small table for model names and prices of mountain bikes.
+
 ```{r}
 library(rvest)
 library(tidyverse)
@@ -277,15 +285,258 @@ print(df)
 
 ```
 
-# Data Wrangling - Patent Analysis
+# Data Wrangling - Patent Analysis 
+
+Analyze patent data.
+
+##  What US company / corporation has the most patents? 
 
 ```{r}
+library("tidyverse")
+library("tidyr")
+library("vroom")
+
+# ignore columns with col_skip
+col_types <- list(
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date("%Y-%m-%d"),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# read all necessary tables
+patent_assignee_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/patent_assignee.tsv",
+  delim      = "\t", 
+  col_types  = col_types,
+  na         = c("", "NA", "NULL")
+)
+
+assignee_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/assignee.tsv",
+                             delim      = "\t", 
+                             col_types  = col_types,
+                             na         = c("", "NA", "NULL")
+)
+
+# filter for  US companies/cooperations
+assignee_tbl = assignee_tbl  %>% filter(type == 2)
+
+# join the data
+joined = left_join(patent_assignee_tbl,assignee_tbl, by =c("assignee_id"="id"))
+joined = drop_na(joined)
+
+# count the number of patents of each organization
+joined = joined %>% group_by(organization) %>% summarize(count=n())
+
+# sort in decreasing order
+joined = joined[order(joined$count, decreasing = TRUE),]
+joined = drop_na(joined)
+
+# list the top 10 companies
+companies = list()
+for (i in 1:10){
+  companies[[i]]  =  joined$organization[i]
+}
+
+print(companies)
+
+
+
+```
+
+# Data Wrangling - Patent Analysis
+
+## What US company had the most patents granted in 2019? 
+
+```{r}
+library("tidyverse")
+library("tidyr")
+library("vroom")
+
+# ignore columns with col_skip
+col_types <- list(
+  number = col_skip(),
+  country = col_skip(),
+  abstract = col_skip(),
+  title = col_skip(),
+  kind = col_skip(),
+  num_claims = col_skip(),
+  filename = col_skip(),
+  withdrawn = col_skip(),
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date("%Y-%m-%d"),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# read all necessary tables
+patent_assignee_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/patent_assignee.tsv",
+                             delim      = "\t", 
+                             col_types  = col_types,
+                             na         = c("", "NA", "NULL")
+)
+
+assignee_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/assignee.tsv",
+                      delim      = "\t", 
+                      col_types  = col_types,
+                      na         = c("", "NA", "NULL")
+)
+
+patent_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/patent.tsv",
+                      delim      = "\t", 
+                      col_types  = col_types,
+                      na         = c("", "NA", "NULL")
+)
+
+#filter for patents in 2019
+patent_tbl = patent_tbl %>% filter(date >= "2019-01-01" & date < "2020-01-01")
+# keep only the columns "id" and "date" (we don't need colum type here)
+patent_tbl = patent_tbl[c("id","date")]
+
+# filter for US companies/cooperations
+assignee_tbl = assignee_tbl  %>% filter(type == 2)
+
+# join data
+joined = left_join(patent_assignee_tbl, patent_tbl, by = c("patent_id"="id"))
+joined = drop_na(joined)
+joined = left_join(joined, assignee_tbl, by = c("assignee_id" = "id"))
+
+# count the number of patents from each organization
+joined = joined %>% group_by(organization) %>% summarize(count=n())
+
+# sort in decreasing order
+joined = joined[order(joined$count, decreasing = TRUE),]
+joined = drop_na(joined)
+
+# write the top ten companies in a list
+res_list = list()
+for (i in 1:10){
+  res_list[[i]]  =  joined[order(joined$count, decreasing = TRUE),]$organization[i]
+}
+print(res_list)
+
+```
+
+# Data Wrangling - Patent Analysis 
+
+## What are the top 5 most innovative tech sectors?
+
+```{r}
+library("tidyverse")
+library("tidyr")
+library("vroom")
+
+# ignore columns with col_skip
+col_types <- list(
+  uuid = col_skip(), 
+  subclass_id = col_skip(),
+  sequence = col_skip(),
+  number = col_skip(),
+  country = col_skip(),
+  abstract = col_skip(),
+  title = col_skip(),
+  kind = col_skip(),
+  num_claims = col_skip(),
+  filename = col_skip(),
+  withdrawn = col_skip(),
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date("%Y-%m-%d"),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# load data 
+patent_assignee_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/patent_assignee.tsv",
+                             delim      = "\t", 
+                             col_types  = col_types,
+                             na         = c("", "NA", "NULL")
+)
+
+
+
+assignee_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/assignee.tsv",
+                      delim      = "\t", 
+                      col_types  = col_types,
+                      na         = c("", "NA", "NULL")
+)
+
+uspc_tbl <- vroom(file = "/home/dominic/Downloads/data/Patent/uspc.tsv",
+                    delim      = "\t", 
+                    col_types  = col_types,
+                    na         = c("", "NA", "NULL")
+)
+
+# list the top 10 wordwide companies!
+assignee_tbl = assignee_tbl  %>% filter(type == 2 | type == 3 ) # consider US or foreign companies
+assignee_tbl = drop_na(assignee_tbl)
+joined = left_join(patent_assignee_tbl, assignee_tbl, by =c("assignee_id"="id")) %>% drop_na()
+comp_tbl = joined %>% group_by(organization) %>% summarize(count=n())
+comp_tbl = comp_tbl[order(comp_tbl$count, decreasing = TRUE),]
+
+top_ten_comp = list()
+for (i in 1:10) {
+  top_ten_comp[[i]] = comp_tbl$organization[i]
+  
+}
+
+# delete all entries where the company is not in the top 10 company list
+joined = joined[joined$organization %in% top_ten_comp,]
+
+# join with uspc table via patent_id
+test = left_join(joined, uspc_tbl, by = c("patent_id"="patent_id"))
+test = test[!duplicated(test$patent_id), ]
+test = drop_na(test)
+
+# group by main class and count
+test = test %>% group_by(mainclass_id) %>% summarise(count=n())
+
+# sort in  decreasing order
+test = test[order(test$count,decreasing = TRUE),]
+
+# determine top 5 main classes
+main_class_list = list()
+for (i in 1:5){
+  main_class_list[[i]] = test$mainclass_id[i]
+}
+
+print(main_class_list)
+
 
 ```
 
 
-
 # Data Visualization - Covid-19
+
+## Plot cumulative cases
 
 ```{r}
 library(tidyverse)
@@ -317,7 +568,6 @@ cases_spain=get_cases_from_state('Spain')
 cases_france=get_cases_from_state('France')
 
 # plot cumulative cases for some states
-colors <- c("Germany" = "blue", "United_States_of_America" = "red", "United_Kingdom" = "orange",'Spain'='orange','France'='black')
 p=ggplot()+ 
   geom_line(data=cases_germany,aes(y=cum_cases,x=dateRep,color='Germany')) +
   geom_line(data=cases_usa,aes(y=cum_cases,x=dateRep,color='United_States_of_America'))+
@@ -328,6 +578,11 @@ p=ggplot()+
 
 plot(p)
 
+```
+
+## Plot mortality rate  by state
+
+```{r}
 # get most recent mortality rates
 last_date=max(covid_data_tbl$dateRep)
 covid_last=covid_data_tbl[covid_data_tbl$dateRep==last_date,]

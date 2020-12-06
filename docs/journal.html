@@ -432,6 +432,7 @@ div.tocify {
 <!-- When you knit this R Markdown document, you will see that the histogram is printed to the page, along with the R code. This document can be set up to hide the R code in the webpage, just delete the comment (hashtag) from the cold folding option in the yaml header up top. For purposes of letting yourself see the code, and me see the code, best to keep it the way that it is. You'll learn that all of these things and more can be customized in each R code block. -->
 <div id="introduction---bike-stores" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction - Bike Stores</h1>
+<p>Calculate revenues by state and plot. Caculate revnues by state and year and plot.</p>
 <pre class="r"><code>library(&#39;tidyverse&#39;)
 library(&#39;readxl&#39;)
 
@@ -524,6 +525,7 @@ plot(p)</code></pre>
 </div>
 <div id="data-acquisition-via-api---star-wars" class="section level1">
 <h1><span class="header-section-number">2</span> Data Acquisition via API - Star Wars</h1>
+<p>Acquire data via the Star Wars API. Print the Persons table as example. The other tables are created as well.</p>
 <pre class="r"><code>library(tidyverse)
 library(httr)
 library(jsonlite)
@@ -602,6 +604,7 @@ print(&quot;print only person table as example (print as tibble was very ugly, I
 </div>
 <div id="data-acquisition-via-scraping---bike-website" class="section level1">
 <h1><span class="header-section-number">3</span> Data Acquisition via Scraping - Bike website</h1>
+<p>Acquire data via webscraping. Create a small table for model names and prices of mountain bikes.</p>
 <pre class="r"><code>library(rvest)
 library(tidyverse)
 
@@ -670,9 +673,318 @@ print(df)</code></pre>
 </div>
 <div id="data-wrangling---patent-analysis" class="section level1">
 <h1><span class="header-section-number">4</span> Data Wrangling - Patent Analysis</h1>
+<p>Analyze patent data.</p>
+<div id="what-us-company-corporation-has-the-most-patents" class="section level2">
+<h2><span class="header-section-number">4.1</span> What US company / corporation has the most patents?</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;vroom&quot;)
+
+# ignore columns with col_skip
+col_types &lt;- list(
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date(&quot;%Y-%m-%d&quot;),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# read all necessary tables
+patent_assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent_assignee.tsv&quot;,
+  delim      = &quot;\t&quot;, 
+  col_types  = col_types,
+  na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/assignee.tsv&quot;,
+                             delim      = &quot;\t&quot;, 
+                             col_types  = col_types,
+                             na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+# filter for  US companies/cooperations
+assignee_tbl = assignee_tbl  %&gt;% filter(type == 2)
+
+# join the data
+joined = left_join(patent_assignee_tbl,assignee_tbl, by =c(&quot;assignee_id&quot;=&quot;id&quot;))
+joined = drop_na(joined)
+
+# count the number of patents of each organization
+joined = joined %&gt;% group_by(organization) %&gt;% summarize(count=n())
+
+# sort in decreasing order
+joined = joined[order(joined$count, decreasing = TRUE),]
+joined = drop_na(joined)
+
+# list the top 10 companies
+companies = list()
+for (i in 1:10){
+  companies[[i]]  =  joined$organization[i]
+}
+
+print(companies)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;International Business Machines Corporation&quot;
+## 
+## [[2]]
+## [1] &quot;General Electric Company&quot;
+## 
+## [[3]]
+## [1] &quot;Intel Corporation&quot;
+## 
+## [[4]]
+## [1] &quot;Hewlett-Packard Development Company, L.P.&quot;
+## 
+## [[5]]
+## [1] &quot;Microsoft Corporation&quot;
+## 
+## [[6]]
+## [1] &quot;Micron Technology, Inc.&quot;
+## 
+## [[7]]
+## [1] &quot;QUALCOMM Incorporated&quot;
+## 
+## [[8]]
+## [1] &quot;Texas Instruments Incorporated&quot;
+## 
+## [[9]]
+## [1] &quot;Xerox Corporation&quot;
+## 
+## [[10]]
+## [1] &quot;Apple Inc.&quot;</code></pre>
+</div>
+</div>
+<div id="data-wrangling---patent-analysis-1" class="section level1">
+<h1><span class="header-section-number">5</span> Data Wrangling - Patent Analysis</h1>
+<div id="what-us-company-had-the-most-patents-granted-in-2019" class="section level2">
+<h2><span class="header-section-number">5.1</span> What US company had the most patents granted in 2019?</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;vroom&quot;)
+
+# ignore columns with col_skip
+col_types &lt;- list(
+  number = col_skip(),
+  country = col_skip(),
+  abstract = col_skip(),
+  title = col_skip(),
+  kind = col_skip(),
+  num_claims = col_skip(),
+  filename = col_skip(),
+  withdrawn = col_skip(),
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date(&quot;%Y-%m-%d&quot;),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# read all necessary tables
+patent_assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent_assignee.tsv&quot;,
+                             delim      = &quot;\t&quot;, 
+                             col_types  = col_types,
+                             na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/assignee.tsv&quot;,
+                      delim      = &quot;\t&quot;, 
+                      col_types  = col_types,
+                      na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+patent_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent.tsv&quot;,
+                      delim      = &quot;\t&quot;, 
+                      col_types  = col_types,
+                      na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+#filter for patents in 2019
+patent_tbl = patent_tbl %&gt;% filter(date &gt;= &quot;2019-01-01&quot; &amp; date &lt; &quot;2020-01-01&quot;)
+# keep only the columns &quot;id&quot; and &quot;date&quot; (we don&#39;t need colum type here)
+patent_tbl = patent_tbl[c(&quot;id&quot;,&quot;date&quot;)]
+
+# filter for US companies/cooperations
+assignee_tbl = assignee_tbl  %&gt;% filter(type == 2)
+
+# join data
+joined = left_join(patent_assignee_tbl, patent_tbl, by = c(&quot;patent_id&quot;=&quot;id&quot;))
+joined = drop_na(joined)
+joined = left_join(joined, assignee_tbl, by = c(&quot;assignee_id&quot; = &quot;id&quot;))
+
+# count the number of patents from each organization
+joined = joined %&gt;% group_by(organization) %&gt;% summarize(count=n())
+
+# sort in decreasing order
+joined = joined[order(joined$count, decreasing = TRUE),]
+joined = drop_na(joined)
+
+# write the top ten companies in a list
+res_list = list()
+for (i in 1:10){
+  res_list[[i]]  =  joined[order(joined$count, decreasing = TRUE),]$organization[i]
+}
+print(res_list)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;International Business Machines Corporation&quot;
+## 
+## [[2]]
+## [1] &quot;Intel Corporation&quot;
+## 
+## [[3]]
+## [1] &quot;Microsoft Technology Licensing, LLC&quot;
+## 
+## [[4]]
+## [1] &quot;Apple Inc.&quot;
+## 
+## [[5]]
+## [1] &quot;Ford Global Technologies, LLC&quot;
+## 
+## [[6]]
+## [1] &quot;Amazon Technologies, Inc.&quot;
+## 
+## [[7]]
+## [1] &quot;QUALCOMM Incorporated&quot;
+## 
+## [[8]]
+## [1] &quot;Google Inc.&quot;
+## 
+## [[9]]
+## [1] &quot;General Electric Company&quot;
+## 
+## [[10]]
+## [1] &quot;Hewlett-Packard Development Company, L.P.&quot;</code></pre>
+</div>
+</div>
+<div id="data-wrangling---patent-analysis-2" class="section level1">
+<h1><span class="header-section-number">6</span> Data Wrangling - Patent Analysis</h1>
+<div id="what-are-the-top-5-most-innovative-tech-sectors" class="section level2">
+<h2><span class="header-section-number">6.1</span> What are the top 5 most innovative tech sectors?</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;vroom&quot;)
+
+# ignore columns with col_skip
+col_types &lt;- list(
+  uuid = col_skip(), 
+  subclass_id = col_skip(),
+  sequence = col_skip(),
+  number = col_skip(),
+  country = col_skip(),
+  abstract = col_skip(),
+  title = col_skip(),
+  kind = col_skip(),
+  num_claims = col_skip(),
+  filename = col_skip(),
+  withdrawn = col_skip(),
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date(&quot;%Y-%m-%d&quot;),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# load data 
+patent_assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent_assignee.tsv&quot;,
+                             delim      = &quot;\t&quot;, 
+                             col_types  = col_types,
+                             na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+
+
+assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/assignee.tsv&quot;,
+                      delim      = &quot;\t&quot;, 
+                      col_types  = col_types,
+                      na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+uspc_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/uspc.tsv&quot;,
+                    delim      = &quot;\t&quot;, 
+                    col_types  = col_types,
+                    na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+# list the top 10 wordwide companies!
+assignee_tbl = assignee_tbl  %&gt;% filter(type == 2 | type == 3 ) # consider US or foreign companies
+assignee_tbl = drop_na(assignee_tbl)
+joined = left_join(patent_assignee_tbl, assignee_tbl, by =c(&quot;assignee_id&quot;=&quot;id&quot;)) %&gt;% drop_na()
+comp_tbl = joined %&gt;% group_by(organization) %&gt;% summarize(count=n())
+comp_tbl = comp_tbl[order(comp_tbl$count, decreasing = TRUE),]
+
+top_ten_comp = list()
+for (i in 1:10) {
+  top_ten_comp[[i]] = comp_tbl$organization[i]
+  
+}
+
+# delete all entries where the company is not in the top 10 company list
+joined = joined[joined$organization %in% top_ten_comp,]
+
+# join with uspc table via patent_id
+test = left_join(joined, uspc_tbl, by = c(&quot;patent_id&quot;=&quot;patent_id&quot;))
+test = test[!duplicated(test$patent_id), ]
+test = drop_na(test)
+
+# group by main class and count
+test = test %&gt;% group_by(mainclass_id) %&gt;% summarise(count=n())
+
+# sort in  decreasing order
+test = test[order(test$count,decreasing = TRUE),]
+
+# determine top 5 main classes
+main_class_list = list()
+for (i in 1:5){
+  main_class_list[[i]] = test$mainclass_id[i]
+}
+
+print(main_class_list)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;257&quot;
+## 
+## [[2]]
+## [1] &quot;365&quot;
+## 
+## [[3]]
+## [1] &quot;438&quot;
+## 
+## [[4]]
+## [1] &quot;370&quot;
+## 
+## [[5]]
+## [1] &quot;358&quot;</code></pre>
+</div>
 </div>
 <div id="data-visualization---covid-19" class="section level1">
-<h1><span class="header-section-number">5</span> Data Visualization - Covid-19</h1>
+<h1><span class="header-section-number">7</span> Data Visualization - Covid-19</h1>
+<div id="plot-cumulative-cases" class="section level2">
+<h2><span class="header-section-number">7.1</span> Plot cumulative cases</h2>
 <pre class="r"><code>library(tidyverse)
 covid_data_tbl &lt;- read_csv(&quot;https://opendata.ecdc.europa.eu/covid19/casedistribution/csv&quot;)
 
@@ -702,7 +1014,6 @@ cases_spain=get_cases_from_state(&#39;Spain&#39;)
 cases_france=get_cases_from_state(&#39;France&#39;)
 
 # plot cumulative cases for some states
-colors &lt;- c(&quot;Germany&quot; = &quot;blue&quot;, &quot;United_States_of_America&quot; = &quot;red&quot;, &quot;United_Kingdom&quot; = &quot;orange&quot;,&#39;Spain&#39;=&#39;orange&#39;,&#39;France&#39;=&#39;black&#39;)
 p=ggplot()+ 
   geom_line(data=cases_germany,aes(y=cum_cases,x=dateRep,color=&#39;Germany&#39;)) +
   geom_line(data=cases_usa,aes(y=cum_cases,x=dateRep,color=&#39;United_States_of_America&#39;))+
@@ -712,7 +1023,10 @@ p=ggplot()+
   labs(title = &#39;Cumulative Cases&#39;,x=&#39;date&#39;,y=&#39;cases&#39;,color=&#39;Legend&#39;)
 
 plot(p)</code></pre>
-<p><img src="journal_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="journal_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="plot-mortality-rate-by-state" class="section level2">
+<h2><span class="header-section-number">7.2</span> Plot mortality rate by state</h2>
 <pre class="r"><code># get most recent mortality rates
 last_date=max(covid_data_tbl$dateRep)
 covid_last=covid_data_tbl[covid_data_tbl$dateRep==last_date,]
@@ -741,7 +1055,8 @@ p=ggplot() +
     scale_fill_gradient(low = &quot;red&quot;, high = &quot;black&quot;,labels=scales::percent)
     
 plot(p)</code></pre>
-<p><img src="journal_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<p><img src="journal_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
 </div>
 
 
