@@ -430,8 +430,13 @@ div.tocify {
 <!-- hist(samples) -->
 <!-- ``` -->
 <!-- When you knit this R Markdown document, you will see that the histogram is printed to the page, along with the R code. This document can be set up to hide the R code in the webpage, just delete the comment (hashtag) from the cold folding option in the yaml header up top. For purposes of letting yourself see the code, and me see the code, best to keep it the way that it is. You'll learn that all of these things and more can be customized in each R code block. -->
+<div id="comment" class="section level1">
+<h1><span class="header-section-number">1</span> Comment</h1>
+<p>Unfortunately, the password encryption did not work under ubuntu 18.04. I installed node.js and npm packagemanager successfully, but the command “npm install -g <a href="https://github.com/TUHHStartupEngineers/staticrypt" class="uri">https://github.com/TUHHStartupEngineers/staticrypt</a>” failed with error message: <br></p>
+<p>npm ERR! git rev-list -n1 master: fatal: ambiguous argument ‘master’: unknown revision or path not in the working tree. <br> npm ERR! git rev-list -n1 master: Use ‘–’ to separate paths from revisions, like this: <br> npm ERR! git rev-list -n1 master: ‘git <command> [<revision>…] – [<file>…]’ <br> npm ERR! git rev-list -n1 master: <br> npm ERR! Linux 5.0.0-31-generic <br> npm ERR! argv “/usr/bin/node” “/usr/bin/npm” “install” “-g” “<a href="https://github.com/TUHHStartupEngineers/staticrypt" class="uri">https://github.com/TUHHStartupEngineers/staticrypt</a>”<br> npm ERR! node v8.10.0<br> npm ERR! npm v3.5.2<br> npm ERR! code 128<br> <br> npm ERR! Command failed: git rev-list -n1 master<br> npm ERR! fatal: ambiguous argument ‘master’: unknown revision or path not in the working tree.<br> npm ERR! Use ‘–’ to separate paths from revisions, like this:<br> npm ERR! ‘git <command> [<revision>…] – [<file>…]’<br> npm ERR! <br> npm ERR! <br> npm ERR! If you need help, you may report this error at:<br> npm ERR! <a href="https://github.com/npm/npm/issues" class="uri">https://github.com/npm/npm/issues</a><br> <br> npm ERR! Please include the following file with any support request:<br> npm ERR! /media/dominic/Windows/Users/Dominic/Documents/Studium/A-Master 5. Semester/Data<br> Science/ws20-business-data-science-basics—lab-journal-dhinz94/npm-debug.log<br> <br> I hope that is no problem. :) <br></p>
+</div>
 <div id="introduction---bike-stores" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction - Bike Stores</h1>
+<h1><span class="header-section-number">2</span> Introduction - Bike Stores</h1>
 <p>Calculate revenues by state and plot. Caculate revnues by state and year and plot.</p>
 <pre class="r"><code>library(&#39;tidyverse&#39;)
 library(&#39;readxl&#39;)
@@ -524,7 +529,7 @@ plot(p)</code></pre>
 <p><img src="journal_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
 </div>
 <div id="data-acquisition-via-api---star-wars" class="section level1">
-<h1><span class="header-section-number">2</span> Data Acquisition via API - Star Wars</h1>
+<h1><span class="header-section-number">3</span> Data Acquisition via API - Star Wars</h1>
 <p>Acquire data via the Star Wars API. Print the Persons table as example. The other tables are created as well.</p>
 <pre class="r"><code>library(tidyverse)
 library(httr)
@@ -603,7 +608,7 @@ print(&quot;print only person table as example (print as tibble was very ugly, I
 ## $ detail     &lt;list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NU…</code></pre>
 </div>
 <div id="data-acquisition-via-scraping---bike-website" class="section level1">
-<h1><span class="header-section-number">3</span> Data Acquisition via Scraping - Bike website</h1>
+<h1><span class="header-section-number">4</span> Data Acquisition via Scraping - Bike website</h1>
 <p>Acquire data via webscraping. Create a small table for model names and prices of mountain bikes.</p>
 <pre class="r"><code>library(rvest)
 library(tidyverse)
@@ -672,10 +677,10 @@ print(df)</code></pre>
 ## 7 SOUL FIRE          2149     0</code></pre>
 </div>
 <div id="data-wrangling---patent-analysis" class="section level1">
-<h1><span class="header-section-number">4</span> Data Wrangling - Patent Analysis</h1>
+<h1><span class="header-section-number">5</span> Data Wrangling - Patent Analysis</h1>
 <p>Analyze patent data.</p>
 <div id="what-us-company-corporation-has-the-most-patents" class="section level2">
-<h2><span class="header-section-number">4.1</span> What US company / corporation has the most patents?</h2>
+<h2><span class="header-section-number">5.1</span> What US company / corporation has the most patents?</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)
 library(&quot;tidyr&quot;)
 library(&quot;vroom&quot;)
@@ -763,7 +768,7 @@ print(companies)</code></pre>
 ## [1] &quot;Apple Inc.&quot;</code></pre>
 </div>
 <div id="what-us-company-had-the-most-patents-granted-in-2019" class="section level2">
-<h2><span class="header-section-number">4.2</span> What US company had the most patents granted in 2019?</h2>
+<h2><span class="header-section-number">5.2</span> What US company had the most patents granted in 2019?</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)
 library(&quot;tidyr&quot;)
 library(&quot;vroom&quot;)
@@ -870,7 +875,7 @@ print(res_list)</code></pre>
 ## [1] &quot;Hewlett-Packard Development Company, L.P.&quot;</code></pre>
 </div>
 <div id="what-are-the-top-5-most-innovative-tech-sectors" class="section level2">
-<h2><span class="header-section-number">4.3</span> What are the top 5 most innovative tech sectors?</h2>
+<h2><span class="header-section-number">5.3</span> What are the top 5 most innovative tech sectors?</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)
 library(&quot;tidyr&quot;)
 library(&quot;vroom&quot;)
@@ -976,9 +981,9 @@ print(main_class_list)</code></pre>
 </div>
 </div>
 <div id="data-visualization---covid-19" class="section level1">
-<h1><span class="header-section-number">5</span> Data Visualization - Covid-19</h1>
+<h1><span class="header-section-number">6</span> Data Visualization - Covid-19</h1>
 <div id="plot-cumulative-cases" class="section level2">
-<h2><span class="header-section-number">5.1</span> Plot cumulative cases</h2>
+<h2><span class="header-section-number">6.1</span> Plot cumulative cases</h2>
 <pre class="r"><code>library(tidyverse)
 covid_data_tbl &lt;- read_csv(&quot;https://opendata.ecdc.europa.eu/covid19/casedistribution/csv&quot;)
 
@@ -1020,7 +1025,7 @@ plot(p)</code></pre>
 <p><img src="journal_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="plot-mortality-rate-by-state" class="section level2">
-<h2><span class="header-section-number">5.2</span> Plot mortality rate by state</h2>
+<h2><span class="header-section-number">6.2</span> Plot mortality rate by state</h2>
 <pre class="r"><code># get most recent mortality rates
 last_date=max(covid_data_tbl$dateRep)
 covid_last=covid_data_tbl[covid_data_tbl$dateRep==last_date,]

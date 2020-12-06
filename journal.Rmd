@@ -53,7 +53,33 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 <!-- When you knit this R Markdown document, you will see that the histogram is printed to the page, along with the R code. This document can be set up to hide the R code in the webpage, just delete the comment (hashtag) from the cold folding option in the yaml header up top. For purposes of letting yourself see the code, and me see the code, best to keep it the way that it is. You'll learn that all of these things and more can be customized in each R code block. -->
 
+# Comment
 
+Unfortunately, the password encryption did not work under ubuntu 18.04. I installed node.js and npm packagemanager successfully, but the command "npm install -g https://github.com/TUHHStartupEngineers/staticrypt" failed with error message: <br>
+
+npm ERR! git rev-list -n1 master: fatal: ambiguous argument 'master': unknown revision or path not in the working tree. <br>
+npm ERR! git rev-list -n1 master: Use '--' to separate paths from revisions, like this: <br>
+npm ERR! git rev-list -n1 master: 'git <command> [<revision>...] -- [<file>...]' <br>
+npm ERR! git rev-list -n1 master:  <br>
+npm ERR! Linux 5.0.0-31-generic <br>
+npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "install" "-g" "https://github.com/TUHHStartupEngineers/staticrypt"<br>
+npm ERR! node v8.10.0<br>
+npm ERR! npm  v3.5.2<br>
+npm ERR! code 128<br>
+<br>
+npm ERR! Command failed: git rev-list -n1 master<br>
+npm ERR! fatal: ambiguous argument 'master': unknown revision or path not in the working tree.<br>
+npm ERR! Use '--' to separate paths from revisions, like this:<br>
+npm ERR! 'git <command> [<revision>...] -- [<file>...]'<br>
+npm ERR! <br>
+npm ERR! <br>
+npm ERR! If you need help, you may report this error at:<br>
+npm ERR!     <https://github.com/npm/npm/issues><br>
+<br>
+npm ERR! Please include the following file with any support request:<br>
+npm ERR!     /media/dominic/Windows/Users/Dominic/Documents/Studium/A-Master 5. Semester/Data<br> Science/ws20-business-data-science-basics---lab-journal-dhinz94/npm-debug.log<br>
+<br>
+I hope that is no problem. :) <br>
 
 # Introduction - Bike Stores
 
