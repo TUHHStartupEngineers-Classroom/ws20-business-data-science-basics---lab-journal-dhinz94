@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dominic Hinz" />
+
+<meta name="date" content="2020-12-06" />
+
+<title>Journal (reproducible report)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">MyLabJournal</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="journal.html">Journal</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Class notes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dictionary.html">Dictionary</a>
+    </li>
+    <li>
+      <a href="data_wrangling.html">Data Wrangling</a>
+    </li>
+    <li>
+      <a href="ggplot_graphs.html">ggplot graphs</a>
+    </li>
+    <li>
+      <a href="machine_learning.html">machine learning</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="links.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Journal (reproducible report)</h1>
+<h4 class="author">Dominic Hinz</h4>
+<h4 class="date">2020-12-06</h4>
+
+</div>
+
+
+<!-- **IMPORTANT:** You can delete everything in here and start fresh. You might want to start by not deleting anything above this line until you know what that stuff is doing. -->
+<!-- This is an `.Rmd` file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a \# in front of your text, it will create a top level-header. -->
+<!-- # My first post -->
+<!-- Last compiled: 2020-12-06 -->
+<!-- Notice that whatever you define as a top level header, automatically gets put into the table of contents bar on the left.  -->
+<!-- ## Second level header -->
+<!-- You can add more headers by adding more hashtags. These won't be put into the table of contents -->
+<!-- ### third level header -->
+<!-- Here's an even lower level header -->
+<!-- # My second post (note the order) -->
+<!-- Last compiled: 2020-12-06 -->
+<!-- I'm writing this tutorial going from the top down. And, this is how it will be printed. So, notice the second post is second in the list. If you want your most recent post to be at the top, then make a new post starting at the top. If you want the oldest first, do, then keep adding to the bottom -->
+<!-- # Adding R stuff -->
+<!-- So far this is just a blog where you can write in plain text and serve your writing to a webpage. One of the main purposes of this lab journal is to record your progress learning R. The reason I am asking you to use this process is because you can both make a website, and a lab journal, and learn R all in R-studio. This makes everything really convenient and in the same place.  -->
+<!-- So, let's say you are learning how to make a histogram in R. For example, maybe you want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation = 1, and then you want to plot a histogram. You can do this right here by using an r code block, like this: -->
+<!-- ```{r} -->
+<!-- samples <- rnorm(100, mean=0, sd=1) -->
+<!-- hist(samples) -->
+<!-- ``` -->
+<!-- When you knit this R Markdown document, you will see that the histogram is printed to the page, along with the R code. This document can be set up to hide the R code in the webpage, just delete the comment (hashtag) from the cold folding option in the yaml header up top. For purposes of letting yourself see the code, and me see the code, best to keep it the way that it is. You'll learn that all of these things and more can be customized in each R code block. -->
+<div id="comment" class="section level1">
+<h1><span class="header-section-number">1</span> Comment</h1>
+<p>Unfortunately, the password encryption did not work under ubuntu 18.04. I installed node.js and npm packagemanager successfully, but the command “npm install -g <a href="https://github.com/TUHHStartupEngineers/staticrypt" class="uri">https://github.com/TUHHStartupEngineers/staticrypt</a>” failed with error message: <br></p>
+<p>npm ERR! git rev-list -n1 master: fatal: ambiguous argument ‘master’: unknown revision or path not in the working tree. <br> npm ERR! git rev-list -n1 master: Use ‘–’ to separate paths from revisions, like this: <br> npm ERR! git rev-list -n1 master: ‘git <command> [<revision>…] – [<file>…]’ <br> npm ERR! git rev-list -n1 master: <br> npm ERR! Linux 5.0.0-31-generic <br> npm ERR! argv “/usr/bin/node” “/usr/bin/npm” “install” “-g” “<a href="https://github.com/TUHHStartupEngineers/staticrypt" class="uri">https://github.com/TUHHStartupEngineers/staticrypt</a>”<br> npm ERR! node v8.10.0<br> npm ERR! npm v3.5.2<br> npm ERR! code 128<br> <br> npm ERR! Command failed: git rev-list -n1 master<br> npm ERR! fatal: ambiguous argument ‘master’: unknown revision or path not in the working tree.<br> npm ERR! Use ‘–’ to separate paths from revisions, like this:<br> npm ERR! ‘git <command> [<revision>…] – [<file>…]’<br> npm ERR! <br> npm ERR! <br> npm ERR! If you need help, you may report this error at:<br> npm ERR! <a href="https://github.com/npm/npm/issues" class="uri">https://github.com/npm/npm/issues</a><br> <br> npm ERR! Please include the following file with any support request:<br> npm ERR! /media/dominic/Windows/Users/Dominic/Documents/Studium/A-Master 5. Semester/Data<br> Science/ws20-business-data-science-basics—lab-journal-dhinz94/npm-debug.log<br> <br> I hope that is no problem. :) <br></p>
+</div>
+<div id="introduction---bike-stores" class="section level1">
+<h1><span class="header-section-number">2</span> Introduction - Bike Stores</h1>
+<p>Calculate revenues by state and plot. Caculate revnues by state and year and plot.</p>
+<pre class="r"><code>library(&#39;tidyverse&#39;)
+library(&#39;readxl&#39;)
+
+#options(tibble.width = Inf) # displays all columns.
+#options(tibble.print_max = 10) #show only specific row amount
+
+data_path=&#39;/media/dominic/Windows/Users/Dominic/Documents/Studium/A-Master 5. Semester/Data Science/data/DS_101/00_data/01_bike_sales/01_raw_data/&#39;
+
+# read files
+bikes=read_excel(paste(data_path,&#39;bikes.xlsx&#39;,sep = &#39;&#39;))
+shops=read_excel(paste(data_path,&#39;bikeshops.xlsx&#39;,sep = &#39;&#39;))
+orders=read_excel(paste(data_path,&#39;orderlines.xlsx&#39;,sep = &#39;&#39;))
+
+# join all tables into one dataframe 
+joined=left_join(orders,shops,by=c(&#39;customer.id&#39;=&#39;bikeshop.id&#39;))
+joined=left_join(joined,bikes,by=c(&#39;product.id&#39;=&#39;bike.id&#39;))
+
+# split location column in city,state column
+joined=separate(joined,location,into=c(&#39;city&#39;,&#39;state&#39;),sep=&#39;, &#39;)
+# split order.date column in year,month,date column
+joined=separate(joined,order.date,into=c(&#39;year&#39;,&#39;month&#39;,&#39;day&#39;),sep=&#39;-&#39;)
+
+#create column with total price per order
+joined$total_price=joined$price* joined$quantity
+
+# get list of unique states, cities, years
+states = unique(joined$state)
+cities = unique(joined$city)
+years = unique(joined$year)
+
+#empty list for revenues,years,states
+revenues_vector=c()
+years_vector=c()
+states_vector=c()
+
+#filter dataframe for all orders in a specific state and year and calculate the corresponding revenue
+for (s in states){
+  #all orders in one state
+  orders_state=joined[joined$state==s,]
+  for (y in years){
+    
+    #all orders in one year in current state
+    order_year=orders_state[orders_state$year==y,]
+    #calculate revenue
+    revenue=sum(order_year$total_price)
+    
+    #append vectors
+    revenues_vector=c(revenues_vector,revenue)
+    years_vector=c(years_vector,y)
+    states_vector=c(states_vector,s)
+  }
+}
+
+#create dataframe from created vectors
+year_state_revenues=tibble(state=states_vector,revenue=revenues_vector,year=years_vector)
+
+# plot revenues over state
+p=ggplot(data=year_state_revenues,aes(y=revenue,x=state)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(
+    title = &quot;Revenue by state&quot;,
+    x = &quot;State&quot;, # Override defaults for x and y
+    y = &quot;Revenue [€]&quot;
+  )+
+  scale_y_continuous(labels = scales::dollar_format(big.mark = &quot;.&quot;,
+                                                    decimal.mark = &quot;,&quot;,
+                                                    prefix = &quot;&quot;,
+                                                    suffix = &quot; €&quot;))
+
+plot(p)</code></pre>
+<p><img src="journal_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code># group plot, revenue over year for every state in a separate barplot
+p=ggplot(data=year_state_revenues,aes(y=revenue,x=year)) +
+  geom_bar(stat = &quot;identity&quot;) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(
+    title    = &quot;Revenue by state&quot;,
+    x = &quot;State&quot;, # Override defaults for x and y
+    y = &quot;Revenue [€]&quot;
+  )+
+  scale_y_continuous(labels = scales::dollar_format(big.mark = &quot;.&quot;, 
+                                                    decimal.mark = &quot;,&quot;, 
+                                                    prefix = &quot;&quot;, 
+                                                    suffix = &quot; €&quot;)) +
+  facet_wrap(~state)
+
+plot(p)</code></pre>
+<p><img src="journal_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+</div>
+<div id="data-acquisition-via-api---star-wars" class="section level1">
+<h1><span class="header-section-number">3</span> Data Acquisition via API - Star Wars</h1>
+<p>Acquire data via the Star Wars API. Print the Persons table as example. The other tables are created as well.</p>
+<pre class="r"><code>library(tidyverse)
+library(httr)
+library(jsonlite)
+
+# function to provide clean object from url
+path_to_object=function (path){
+  result=GET(path)
+  content=rawToChar(result$content)
+  object=fromJSON(content,flatten = TRUE)
+  return(object)
+              
+}
+
+base_url=&quot;https://swapi.dev/api/&quot;
+
+base_content=path_to_object(base_url)
+
+# get table names from base categories
+tables=names(base_content)
+
+table_list=list()
+
+# loop through every table
+for (i in 1:length(tables)){
+  table_name=tables[[i]]
+  table_url=base_content[table_name][[1]]
+  
+  # get content of table
+  table_content=path_to_object(table_url)
+  # get amount of instances in table
+  instance_amount=table_content$count
+  
+  instances=list()
+  #loop over every instance and create row for table
+  for (j in 1:instance_amount){
+    instance_url=paste(table_url,j,&#39;/&#39;,sep=&#39;&#39;)
+    instance_content=path_to_object(instance_url)
+    row=enframe(instance_content)
+    row=pivot_wider(row)
+    #collect all rows in list
+    instances[[j]]=row
+
+  }
+  
+  # combine every row to a table dataframe
+  table=bind_rows(instances)
+  
+  #collect all tables in list
+  table_list[[i]]=table
+
+
+}
+
+print(&quot;print only person table as example (print as tibble was very ugly, I used glimpse() here)&quot;)</code></pre>
+<pre><code>## [1] &quot;print only person table as example (print as tibble was very ugly, I used glimpse() here)&quot;</code></pre>
+<pre class="r"><code>glimpse(table_list[[1]])</code></pre>
+<pre><code>## Rows: 82
+## Columns: 17
+## $ name       &lt;list&gt; [&quot;Luke Skywalker&quot;, &quot;C-3PO&quot;, &quot;R2-D2&quot;, &quot;Darth Vader&quot;, &quot;Leia…
+## $ height     &lt;list&gt; [&quot;172&quot;, &quot;167&quot;, &quot;96&quot;, &quot;202&quot;, &quot;150&quot;, &quot;178&quot;, &quot;165&quot;, &quot;97&quot;, &quot;1…
+## $ mass       &lt;list&gt; [&quot;77&quot;, &quot;75&quot;, &quot;32&quot;, &quot;136&quot;, &quot;49&quot;, &quot;120&quot;, &quot;75&quot;, &quot;32&quot;, &quot;84&quot;, …
+## $ hair_color &lt;list&gt; [&quot;blond&quot;, &quot;n/a&quot;, &quot;n/a&quot;, &quot;none&quot;, &quot;brown&quot;, &quot;brown, grey&quot;, &quot;…
+## $ skin_color &lt;list&gt; [&quot;fair&quot;, &quot;gold&quot;, &quot;white, blue&quot;, &quot;white&quot;, &quot;light&quot;, &quot;light&quot;…
+## $ eye_color  &lt;list&gt; [&quot;blue&quot;, &quot;yellow&quot;, &quot;red&quot;, &quot;yellow&quot;, &quot;brown&quot;, &quot;blue&quot;, &quot;blu…
+## $ birth_year &lt;list&gt; [&quot;19BBY&quot;, &quot;112BBY&quot;, &quot;33BBY&quot;, &quot;41.9BBY&quot;, &quot;19BBY&quot;, &quot;52BBY&quot;,…
+## $ gender     &lt;list&gt; [&quot;male&quot;, &quot;n/a&quot;, &quot;n/a&quot;, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;…
+## $ homeworld  &lt;list&gt; [&quot;http://swapi.dev/api/planets/1/&quot;, &quot;http://swapi.dev/api…
+## $ films      &lt;list&gt; [&lt;&quot;http://swapi.dev/api/films/1/&quot;, &quot;http://swapi.dev/api/…
+## $ species    &lt;list&gt; [[], &quot;http://swapi.dev/api/species/2/&quot;, &quot;http://swapi.dev…
+## $ vehicles   &lt;list&gt; [&lt;&quot;http://swapi.dev/api/vehicles/14/&quot;, &quot;http://swapi.dev/…
+## $ starships  &lt;list&gt; [&lt;&quot;http://swapi.dev/api/starships/12/&quot;, &quot;http://swapi.dev…
+## $ created    &lt;list&gt; [&quot;2014-12-09T13:50:51.644000Z&quot;, &quot;2014-12-10T15:10:51.3570…
+## $ edited     &lt;list&gt; [&quot;2014-12-20T21:17:56.891000Z&quot;, &quot;2014-12-20T21:17:50.3090…
+## $ url        &lt;list&gt; [&quot;http://swapi.dev/api/people/1/&quot;, &quot;http://swapi.dev/api/…
+## $ detail     &lt;list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NU…</code></pre>
+</div>
+<div id="data-acquisition-via-scraping---bike-website" class="section level1">
+<h1><span class="header-section-number">4</span> Data Acquisition via Scraping - Bike website</h1>
+<p>Acquire data via webscraping. Create a small table for model names and prices of mountain bikes.</p>
+<pre class="r"><code>library(rvest)
+library(tidyverse)
+
+#get html for mountainbike category
+base=read_html(&#39;https://www.rosebikes.de/fahrräder/mtb&#39;)
+
+# get html nodes  for all bikes
+bikes=html_nodes(base,css = &#39;li.catalog-category-bikes__list-item&#39;)
+
+names=list()
+euros=list()
+cents=list()
+i=1
+
+#loop over all bike nodes
+for (bike in bikes){
+  #get text of object with bike name
+  name=html_text(html_node(bike,css=&#39;span.catalog-category-bikes__title-text&#39;))
+  # remove unnecessary strings from name
+  name=str_replace_all(name, &#39;\n&#39;, &#39;&#39;)
+  
+  # get text of object with bike price
+  price=html_text(html_node(bike,css=&#39;div.catalog-category-bikes__price-title&#39;))
+  # remove unnecessary strings from price
+  price=str_replace_all(price, &#39;\n&#39;, &#39;&#39;)
+  price=str_replace_all(price, &#39;€&#39;, &#39;&#39;)
+  price=str_replace_all(price, &#39;ab &#39;, &#39;&#39;)
+  price=str_replace_all(price, &quot; &quot;, &quot;&quot;)
+  price=str_replace_all(price,&#39;[.]&#39;,&#39;&#39;)
+
+  #split into euro and cent
+  price_splitted=str_split(price,&#39;,&#39;)[[1]]
+  
+  # check if  price is available and convert to integer
+  if (length(price_splitted)==2){
+    euro=strtoi(price_splitted[[1]])
+    cent=strtoi(substring(price_splitted[[2]],1,2)) # get only 2 first characters from cent string becaus last whitespace cannot be removed (did not find out why)
+  }else{
+    next # skip bike if no price is available
+  }
+  
+  #collect all model names and prices
+  names[[i]]=name
+  euros[[i]]=euro
+  cents[[i]]=cent
+  
+  i=i+1
+
+}
+
+#create datafram from bike models and prices
+df=tibble(name=names,euro=euros,cent=cents)
+#unnest lists in column
+df=unnest(df,cols=c(name,euro,cent))
+print(df)</code></pre>
+<pre><code>## # A tibble: 7 x 3
+##   name               euro  cent
+##   &lt;chr&gt;             &lt;int&gt; &lt;int&gt;
+## 1 GROUND CONTROL     1699     0
+## 2 ROOT MILLER        1999     0
+## 3 PIKES PEAK         3099     0
+## 4 PSYCHO PATH        1849     0
+## 5 THRILL HILL        2599     0
+## 6 THRILL HILL TRAIL  2899     0
+## 7 SOUL FIRE          2149     0</code></pre>
+</div>
+<div id="data-wrangling---patent-analysis" class="section level1">
+<h1><span class="header-section-number">5</span> Data Wrangling - Patent Analysis</h1>
+<p>Analyze patent data.</p>
+<div id="what-us-company-corporation-has-the-most-patents" class="section level2">
+<h2><span class="header-section-number">5.1</span> What US company / corporation has the most patents?</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;vroom&quot;)
+
+# ignore columns with col_skip
+col_types &lt;- list(
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date(&quot;%Y-%m-%d&quot;),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# read all necessary tables
+patent_assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent_assignee.tsv&quot;,
+  delim      = &quot;\t&quot;, 
+  col_types  = col_types,
+  na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/assignee.tsv&quot;,
+                             delim      = &quot;\t&quot;, 
+                             col_types  = col_types,
+                             na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+# filter for  US companies/cooperations
+assignee_tbl = assignee_tbl  %&gt;% filter(type == 2)
+
+# join the data
+joined = left_join(patent_assignee_tbl,assignee_tbl, by =c(&quot;assignee_id&quot;=&quot;id&quot;))
+joined = drop_na(joined)
+
+# count the number of patents of each organization
+joined = joined %&gt;% group_by(organization) %&gt;% summarize(count=n())
+
+# sort in decreasing order
+joined = joined[order(joined$count, decreasing = TRUE),]
+joined = drop_na(joined)
+
+# list the top 10 companies
+companies = list()
+for (i in 1:10){
+  companies[[i]]  =  joined$organization[i]
+}
+
+print(companies)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;International Business Machines Corporation&quot;
+## 
+## [[2]]
+## [1] &quot;General Electric Company&quot;
+## 
+## [[3]]
+## [1] &quot;Intel Corporation&quot;
+## 
+## [[4]]
+## [1] &quot;Hewlett-Packard Development Company, L.P.&quot;
+## 
+## [[5]]
+## [1] &quot;Microsoft Corporation&quot;
+## 
+## [[6]]
+## [1] &quot;Micron Technology, Inc.&quot;
+## 
+## [[7]]
+## [1] &quot;QUALCOMM Incorporated&quot;
+## 
+## [[8]]
+## [1] &quot;Texas Instruments Incorporated&quot;
+## 
+## [[9]]
+## [1] &quot;Xerox Corporation&quot;
+## 
+## [[10]]
+## [1] &quot;Apple Inc.&quot;</code></pre>
+</div>
+<div id="what-us-company-had-the-most-patents-granted-in-2019" class="section level2">
+<h2><span class="header-section-number">5.2</span> What US company had the most patents granted in 2019?</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;vroom&quot;)
+
+# ignore columns with col_skip
+col_types &lt;- list(
+  number = col_skip(),
+  country = col_skip(),
+  abstract = col_skip(),
+  title = col_skip(),
+  kind = col_skip(),
+  num_claims = col_skip(),
+  filename = col_skip(),
+  withdrawn = col_skip(),
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date(&quot;%Y-%m-%d&quot;),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# read all necessary tables
+patent_assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent_assignee.tsv&quot;,
+                             delim      = &quot;\t&quot;, 
+                             col_types  = col_types,
+                             na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/assignee.tsv&quot;,
+                      delim      = &quot;\t&quot;, 
+                      col_types  = col_types,
+                      na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+patent_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent.tsv&quot;,
+                      delim      = &quot;\t&quot;, 
+                      col_types  = col_types,
+                      na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+#filter for patents in 2019
+patent_tbl = patent_tbl %&gt;% filter(date &gt;= &quot;2019-01-01&quot; &amp; date &lt; &quot;2020-01-01&quot;)
+# keep only the columns &quot;id&quot; and &quot;date&quot; (we don&#39;t need colum type here)
+patent_tbl = patent_tbl[c(&quot;id&quot;,&quot;date&quot;)]
+
+# filter for US companies/cooperations
+assignee_tbl = assignee_tbl  %&gt;% filter(type == 2)
+
+# join data
+joined = left_join(patent_assignee_tbl, patent_tbl, by = c(&quot;patent_id&quot;=&quot;id&quot;))
+joined = drop_na(joined)
+joined = left_join(joined, assignee_tbl, by = c(&quot;assignee_id&quot; = &quot;id&quot;))
+
+# count the number of patents from each organization
+joined = joined %&gt;% group_by(organization) %&gt;% summarize(count=n())
+
+# sort in decreasing order
+joined = joined[order(joined$count, decreasing = TRUE),]
+joined = drop_na(joined)
+
+# write the top ten companies in a list
+res_list = list()
+for (i in 1:10){
+  res_list[[i]]  =  joined[order(joined$count, decreasing = TRUE),]$organization[i]
+}
+print(res_list)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;International Business Machines Corporation&quot;
+## 
+## [[2]]
+## [1] &quot;Intel Corporation&quot;
+## 
+## [[3]]
+## [1] &quot;Microsoft Technology Licensing, LLC&quot;
+## 
+## [[4]]
+## [1] &quot;Apple Inc.&quot;
+## 
+## [[5]]
+## [1] &quot;Ford Global Technologies, LLC&quot;
+## 
+## [[6]]
+## [1] &quot;Amazon Technologies, Inc.&quot;
+## 
+## [[7]]
+## [1] &quot;QUALCOMM Incorporated&quot;
+## 
+## [[8]]
+## [1] &quot;Google Inc.&quot;
+## 
+## [[9]]
+## [1] &quot;General Electric Company&quot;
+## 
+## [[10]]
+## [1] &quot;Hewlett-Packard Development Company, L.P.&quot;</code></pre>
+</div>
+<div id="what-are-the-top-5-most-innovative-tech-sectors" class="section level2">
+<h2><span class="header-section-number">5.3</span> What are the top 5 most innovative tech sectors?</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;vroom&quot;)
+
+# ignore columns with col_skip
+col_types &lt;- list(
+  uuid = col_skip(), 
+  subclass_id = col_skip(),
+  sequence = col_skip(),
+  number = col_skip(),
+  country = col_skip(),
+  abstract = col_skip(),
+  title = col_skip(),
+  kind = col_skip(),
+  num_claims = col_skip(),
+  filename = col_skip(),
+  withdrawn = col_skip(),
+  location_id = col_skip(),
+  name_first = col_skip(),
+  name_last = col_skip(),
+  id = col_character(),
+  type = col_character(),
+  number = col_character(),
+  country = col_character(),
+  date = col_date(&quot;%Y-%m-%d&quot;),
+  abstract = col_character(),
+  title = col_character(),
+  kind = col_character(),
+  num_claims = col_double(),
+  filename = col_character(),
+  withdrawn = col_double()
+)
+
+# load data 
+patent_assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/patent_assignee.tsv&quot;,
+                             delim      = &quot;\t&quot;, 
+                             col_types  = col_types,
+                             na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+
+
+assignee_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/assignee.tsv&quot;,
+                      delim      = &quot;\t&quot;, 
+                      col_types  = col_types,
+                      na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+uspc_tbl &lt;- vroom(file = &quot;/home/dominic/Downloads/data/Patent/uspc.tsv&quot;,
+                    delim      = &quot;\t&quot;, 
+                    col_types  = col_types,
+                    na         = c(&quot;&quot;, &quot;NA&quot;, &quot;NULL&quot;)
+)
+
+# list the top 10 wordwide companies!
+assignee_tbl = assignee_tbl  %&gt;% filter(type == 2 | type == 3 ) # consider US or foreign companies
+assignee_tbl = drop_na(assignee_tbl)
+joined = left_join(patent_assignee_tbl, assignee_tbl, by =c(&quot;assignee_id&quot;=&quot;id&quot;)) %&gt;% drop_na()
+comp_tbl = joined %&gt;% group_by(organization) %&gt;% summarize(count=n())
+comp_tbl = comp_tbl[order(comp_tbl$count, decreasing = TRUE),]
+
+top_ten_comp = list()
+for (i in 1:10) {
+  top_ten_comp[[i]] = comp_tbl$organization[i]
+  
+}
+
+# delete all entries where the company is not in the top 10 company list
+joined = joined[joined$organization %in% top_ten_comp,]
+
+# join with uspc table via patent_id
+test = left_join(joined, uspc_tbl, by = c(&quot;patent_id&quot;=&quot;patent_id&quot;))
+test = test[!duplicated(test$patent_id), ]
+test = drop_na(test)
+
+# group by main class and count
+test = test %&gt;% group_by(mainclass_id) %&gt;% summarise(count=n())
+
+# sort in  decreasing order
+test = test[order(test$count,decreasing = TRUE),]
+
+# determine top 5 main classes
+main_class_list = list()
+for (i in 1:5){
+  main_class_list[[i]] = test$mainclass_id[i]
+}
+
+print(main_class_list)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;257&quot;
+## 
+## [[2]]
+## [1] &quot;365&quot;
+## 
+## [[3]]
+## [1] &quot;438&quot;
+## 
+## [[4]]
+## [1] &quot;370&quot;
+## 
+## [[5]]
+## [1] &quot;358&quot;</code></pre>
+</div>
+</div>
+<div id="data-visualization---covid-19" class="section level1">
+<h1><span class="header-section-number">6</span> Data Visualization - Covid-19</h1>
+<div id="plot-cumulative-cases" class="section level2">
+<h2><span class="header-section-number">6.1</span> Plot cumulative cases</h2>
+<pre class="r"><code>library(tidyverse)
+covid_data_tbl &lt;- read_csv(&quot;https://opendata.ecdc.europa.eu/covid19/casedistribution/csv&quot;)
+
+# sort for date
+covid_data_tbl=arrange(covid_data_tbl,countriesAndTerritories,year,month,day)
+# convert date as &quot;Date&quot; datatype
+covid_data_tbl[,&#39;dateRep&#39;]=as.Date(covid_data_tbl$dateRep, &quot;%d/%m/%Y&quot;)
+
+#calculate cumulated cases and deaths
+covid_data_tbl=mutate(group_by(covid_data_tbl, countriesAndTerritories),cum_death=cumsum(deaths))
+covid_data_tbl=mutate(group_by(covid_data_tbl, countriesAndTerritories),cum_cases=cumsum(cases))
+
+#calculate death rate by cumulated deaths/population
+covid_data_tbl=mutate(covid_data_tbl,mortality_rate=cum_death/(popData2019+1e-8))
+
+# function that filters for data of only one state
+get_cases_from_state=function(state){
+  cases=covid_data_tbl[covid_data_tbl$countriesAndTerritories==state,]
+  return(cases)
+}
+  
+#get cases of different states
+cases_germany=get_cases_from_state(&#39;Germany&#39;)
+cases_usa=get_cases_from_state(&#39;United_States_of_America&#39;)
+cases_uk=get_cases_from_state(&#39;United_Kingdom&#39;)
+cases_spain=get_cases_from_state(&#39;Spain&#39;)
+cases_france=get_cases_from_state(&#39;France&#39;)
+
+# plot cumulative cases for some states
+p=ggplot()+ 
+  geom_line(data=cases_germany,aes(y=cum_cases,x=dateRep,color=&#39;Germany&#39;)) +
+  geom_line(data=cases_usa,aes(y=cum_cases,x=dateRep,color=&#39;United_States_of_America&#39;))+
+  geom_line(data=cases_uk,aes(y=cum_cases,x=dateRep,color=&#39;United_Kingdom&#39;))+
+  geom_line(data=cases_spain,aes(y=cum_cases,x=dateRep,color=&#39;Spain&#39;))+
+  geom_line(data=cases_france,aes(y=cum_cases,x=dateRep,color=&#39;France&#39;))+
+  labs(title = &#39;Cumulative Cases&#39;,x=&#39;date&#39;,y=&#39;cases&#39;,color=&#39;Legend&#39;)
+
+plot(p)</code></pre>
+<p><img src="journal_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="plot-mortality-rate-by-state" class="section level2">
+<h2><span class="header-section-number">6.2</span> Plot mortality rate by state</h2>
+<pre class="r"><code># get most recent mortality rates
+last_date=max(covid_data_tbl$dateRep)
+covid_last=covid_data_tbl[covid_data_tbl$dateRep==last_date,]
+
+# clean up dataframe
+covid_last$countriesAndTerritories &lt;- lapply(covid_last$countriesAndTerritories, gsub, pattern = &quot;_&quot;, replacement = &quot; &quot;)
+covid_last$countriesAndTerritories &lt;- lapply(covid_last$countriesAndTerritories, gsub, pattern = &quot;United Kingdom&quot;, replacement = &quot;UK&quot;)
+covid_last$countriesAndTerritories &lt;- lapply(covid_last$countriesAndTerritories, gsub, pattern = &quot;United States of America&quot;, replacement = &quot;USA&quot;)
+covid_last$countriesAndTerritories &lt;- lapply(covid_last$countriesAndTerritories, gsub, pattern = &quot;Czechia&quot;, replacement = &quot;Czech Republic&quot;)
+covid_last=unnest(covid_last,cols=c(countriesAndTerritories))
+
+# load world map data
+world &lt;- map_data(&quot;world&quot;)
+
+# join world map data and table with most recent covid data
+joined=right_join(world,covid_last,by=c(&#39;region&#39;=&#39;countriesAndTerritories&#39;))
+# drop states where no data is available (e.g vatican)
+joined=joined[!is.na(joined$mortality_rate),]
+
+
+# plot mortality rates on world map
+p=ggplot() +
+  geom_map(
+    data = joined, map = world, aes(long, lat, map_id = region,fill = mortality_rate), color = &quot;black&quot;, size = 0.1)+
+    labs(title = &#39;Mortality Rate&#39;,color=&#39;Legend&#39;)+
+    scale_fill_gradient(low = &quot;red&quot;, high = &quot;black&quot;,labels=scales::percent)
+    
+plot(p)</code></pre>
+<p><img src="journal_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
